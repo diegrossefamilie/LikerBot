@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  db:
+    build:
+      context: ./db
+    container_name: lbot_db
+    ports:
+      - 5432
+    env_file:
+      - .env
+  bot:
+    build: ./code
+    restart: always
+    container_name: lbot
+    command: python likerbot.py docker
+    depends_on:
+      - db
